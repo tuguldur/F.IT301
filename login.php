@@ -17,10 +17,10 @@
          <div class="collapse navbar-collapse" id="navbar">
             <ul class="navbar-nav mr-auto">
                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+                  <a class="nav-link" href="search.php">Хайх</a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+                  <a class="nav-link" href="list.php">Жагсаалт</a>
                </li>
             </ul>
             <ul class="navbar-nav">
@@ -50,10 +50,10 @@
                      $raw_password = mysqli_real_escape_string($connect, $_POST['password']);
                      $code = strtoupper($raw_code);
                      $password = md5($raw_password);
-                     $result = $connect->query("SELECT id FROM students WHERE st_code = '$code' AND password = '$password'");
+                     $result = $connect->query("SELECT id FROM students WHERE st_code = '$code' AND password = '$password' LIMIT 1");
                      if ($result->num_rows > 0) {
                          session_start();
-                         $_SESSION['session_id'] = $code;
+                         $_SESSION['user'] = $result->fetch_assoc();
                          header("location: status.php");
                      }else {
                      echo "

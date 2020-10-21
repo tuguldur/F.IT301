@@ -17,10 +17,10 @@
          <div class="collapse navbar-collapse" id="navbar">
             <ul class="navbar-nav mr-auto">
                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+                  <a class="nav-link" href="search.php">Хайх</a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+                  <a class="nav-link" href="list.php">Жагсаалт</a>
                </li>
             </ul>
             <ul class="navbar-nav">
