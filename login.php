@@ -1,3 +1,10 @@
+<?php
+   session_start();
+   if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+      // Хэрэглэгчийг нэвтэрсэн эсэхийн шалгана.
+      header('location:status.php');
+   }
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -52,7 +59,6 @@
                      $password = md5($raw_password);
                      $result = $connect->query("SELECT id FROM students WHERE st_code = '$code' AND password = '$password' LIMIT 1");
                      if ($result->num_rows > 0) {
-                         session_start();
                          $_SESSION['user'] = $result->fetch_assoc();
                          header("location: status.php");
                      }else {

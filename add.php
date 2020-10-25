@@ -45,7 +45,7 @@
                </div>
                <div class="form-group">
                   <label>Хүйс</label>
-                  <select class="custom-select" required name="gender">
+                  <select class="form-control" required name="gender">
                      <option value="1">Эр</option>
                      <option value="0">Эм</option>
                   </select>

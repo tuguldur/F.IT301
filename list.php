@@ -69,13 +69,12 @@ echo "<td>
 </td>";
 echo "</tr>";
 }
-$connect->close();
 ?>
   </tbody>
 </table>
 <?php
 $num_rows = mysqli_num_rows($result);
-
+$connect->close();
 echo "Нийт <b>$num_rows</b> Оюутан\n";
 ?>
 </div>
