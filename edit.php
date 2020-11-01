@@ -1,9 +1,17 @@
+<?php
+include ('./lib/config.php');
+if(isset($_GET['id'])){
+    $id = (int)$_GET['id'];
+    $edit = $connect->query("SELECT * FROM students WHERE id = $id");
+    $student = $edit->fetch_assoc();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Add</title>
+      <title>Edit</title>
       <link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
       <link rel="stylesheet" href="assets/css/style.css"/>
    </head>
@@ -37,42 +45,33 @@
                <h5 class="text-center">Шинэ оюутан нэмэгх</h5>
                <div class="form-group">
                   <label>Нэр</label>
-                  <input type="text" class="form-control" placeholder="Оюутны нэр" required name="name" />
+                  <input type="text" class="form-control" placeholder="Оюутны нэр" required name="name" value="<?= $student['st_name'] ?>" />
                </div>
                <div class="form-group">
                   <label>Оюутны код</label>
-                  <input type="text" class="form-control" placeholder="Оюутны код" required name="code" />
+                  <input type="text" class="form-control" placeholder="Оюутны код" required name="code" value="<?= $student['st_code'] ?>" />
                </div>
                <div class="form-group">
                   <label>Хүйс</label>
                   <select class="form-control" required name="gender">
-                     <option value="1">Эр</option>
-                     <option value="0">Эм</option>
+                     <option value="1" <?= $student['st_huis'] == 1 ? 'selected' :'' ?>>Эр</option>
+                     <option value="0" <?= $student['st_huis'] == 0 ? 'selected' :'' ?>>Эм</option>
                   </select>
                </div>
                <div class="form-group">
                   <label>Нас</label>
-                  <input type="number" class="form-control" placeholder="Оюутны нас" required name="age" />
+                  <input type="number" class="form-control" placeholder="Оюутны нас" required name="age" value="<?= $student['st_nas'] ?>" />
                </div>
                <div class="form-group">
                   <label>Утасны дугаар</label>
-                  <input type="number" class="form-control" placeholder="Оюунты утасны дугаар" required name="phone" />
+                  <input type="number" class="form-control" placeholder="Оюунты утасны дугаар" required name="phone" value="<?= $student['st_phone_number'] ?>" />
                </div>
                <div class="form-group">
                   <label>Хаяг</label>
-                  <textarea class="form-control" rows="3" required name="address"></textarea>
-               </div>
-               <div class="form-group">
-                  <label>Нууц үг</label>
-                  <input type="password" class="form-control" placeholder="Нууц үг" required name="password" id="password" />
-               </div>
-               <div class="form-group">
-                  <label>Нууц үг давтах</label>
-                  <input type="password" class="form-control" placeholder="Нууц үг давтах" required name="password_confirm" id="password_confirm" />
+                  <textarea class="form-control" rows="3" required name="address"><?= htmlspecialchars($student['st_address']) ?></textarea>
                </div>
 <?php
-include ('./lib/config.php');
-if (isset($_POST['name']) && isset($_POST['code']) && isset($_POST['gender']) && isset($_POST['age']) && isset($_POST['phone']) && isset($_POST['address']) && isset($_POST['password']) && isset($_POST['password_confirm']))
+if (isset($_POST['name']) && isset($_POST['code']) && isset($_POST['gender']) && isset($_POST['age']) && isset($_POST['phone']) && isset($_POST['address']))
 {
     //   hope this will prevent SQL injections
     $name = mysqli_real_escape_string($connect, $_POST['name']);
@@ -81,24 +80,9 @@ if (isset($_POST['name']) && isset($_POST['code']) && isset($_POST['gender']) &&
     $age = mysqli_real_escape_string($connect, $_POST['age']);
     $phone = mysqli_real_escape_string($connect, $_POST['phone']);
     $address = mysqli_real_escape_string($connect, $_POST['address']);
-    $password = mysqli_real_escape_string($connect, $_POST['password']);
-    $password_confirm = mysqli_real_escape_string($connect, $_POST['password_confirm']);
     $code_uppercase = strtoupper($code);
-    if ($password !== $password_confirm)
-    {
-        echo "
-            <div class='alert alert-danger alert-dismissible fade show' role='alert'>
-              Нууц үг зөрж байна.
-               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                  <span aria-hidden='true'>&times;</span>
-               </button>
-            </div>
-            ";
-    }
-    else
-    {
-      $result = $connect->query("SELECT * FROM students WHERE st_code='$code_uppercase'");
-      if($result->num_rows > 0)
+    $result = $connect->query("SELECT * FROM students WHERE st_code='$code_uppercase' AND id<>$id");
+    if($result->num_rows > 0)
       {
           echo "
               <div class='alert alert-danger alert-dismissible fade show' role='alert'>
@@ -110,14 +94,12 @@ if (isset($_POST['name']) && isset($_POST['code']) && isset($_POST['gender']) &&
               ";
       }
       else{
-         $password_hash = md5($password);
-         $query = "INSERT INTO students(st_code, st_name, st_huis, st_nas,st_phone_number, st_address, password) 
-         VALUES ('$code_uppercase','$name', '$gender', '$age', '$phone', '$address', '$password_hash')";
+        $query = "UPDATE students SET st_code='$code', st_name='$name', st_huis='$gender', st_nas='$age',st_phone_number='$phone', st_address='$address' WHERE id='$id'";
         if ($connect->query($query) === true)
         {
             echo "
          <div class='alert alert-success alert-dismissible fade show' role='alert'>
-           Амжилттай бүртгэлээ.
+           Амжилттай хадгаллаа.
             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                <span aria-hidden='true'>&times;</span>
             </button>
@@ -135,29 +117,17 @@ if (isset($_POST['name']) && isset($_POST['code']) && isset($_POST['gender']) &&
          </div>
          ";
         }
-      }
     }
     $connect->close();
 }
 ?>
 
-               <button type="submit" class="btn btn-primary btn-block text-uppercase" style="font-weight: 500;">Нэмэх</button>
+               <button type="submit" class="btn btn-primary btn-block text-uppercase" style="font-weight: 500;">хадгалах</button>
             </form>
          </div>
       </div>
       <script src="assets/js/jquery-3.5.1.min.js"></script>
       <script src="assets/js/popper.min.js"></script>
       <script src="assets/js/bootstrap.min.js"></script>
-      <!-- custom javascript -->
-      <script>
-       $("#add-form").on("submit", () => {
-            var password = $("#password").val();
-            var password_confirm = $("#password_confirm").val();
-            if (password !== password_confirm) {
-               alert("Нууц үг зөрж байна");
-               return false;
-            }
-         });
-      </script>
    </body>
 </html>
