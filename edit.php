@@ -42,7 +42,7 @@ if(isset($_GET['id'])){
       <div className="row">
          <div class="form-wrapper">
             <form id="add-form" method="POST">
-               <h5 class="text-center">Шинэ оюутан нэмэгх</h5>
+               <h5 class="text-center">Оюутны мэдээлэл засах</h5>
                <div class="form-group">
                   <label>Нэр</label>
                   <input type="text" class="form-control" placeholder="Оюутны нэр" required name="name" value="<?= $student['st_name'] ?>" />
