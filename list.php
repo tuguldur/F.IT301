@@ -69,7 +69,12 @@ echo "<tr>";
 echo "<td>" . $row['id'] . "</td>";
 echo "<td>" . $row['st_code'] . "</td>";
 echo "<td>" . $row['st_name'] . "</td>";
-echo "<td>" . $row['st_huis'] . "</td>";
+if($row['st_huis'] == 1){
+   echo "<td>Эр</td>";
+}
+else{
+   echo "<td>Эм</td>";
+}
 echo "<td>" . $row['st_nas'] . "</td>";
 echo "<td>" . $row['st_phone_number'] . "</td>";
 echo "<td>" . $row['st_address'] . "</td>";
@@ -83,6 +88,7 @@ echo "</tr>";
   </tbody>
 </table>
 <?php
+$result = $connect->query("SELECT * FROM students");
 $num_rows = mysqli_num_rows($result);
 $connect->close();
 echo "Нийт <b>$num_rows</b> Оюутан\n";

@@ -32,18 +32,55 @@
       </nav>
       <div class="container mt-5">
       <form method="GET" class="row">
-   <div class="form-group col-md-8">
+   <div class="form-group col-md-7">
       
          <label for="search-input">Оюутан хайх</label>
          <input type="search" class="form-control" id="search-input" aria-describedby="search-tip" placeholder="Хайх утга аа оруулна уу." autofocus="true" name="q">
    </div>
-   <div class="form-group col-md-3">
-   <label for="search-input">Насаар эрэмблэх</label>
-      <select class="form-control" name="age">
-         <option value="false">--Сонгох--</option>
-         <option value="asc">Өсөхөөр</option>
-         <option value="desc">Буурхаар</option>
-      </select>
+   <div class="form-group col-md-5">
+   <label>Хайх талбарууд</label>
+     <div class="row">
+      <div class="col">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="st_code_check" name="search_code">
+        <label class="form-check-label" for="st_code_check">
+          Код
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="st_name_check" name="search_name">
+        <label class="form-check-label" for="st_name_check">
+          Нэр
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="st_gender_check" name="search_gender">
+        <label class="form-check-label" for="st_gender_check">
+          Хүйс
+        </label>
+      </div>
+      </div>
+      <div class="col">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="st_phone_number_check" name="search_phone">
+        <label class="form-check-label" for="st_phone_number_check">
+          Утасны дугаар
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="st_nas_check" name="search_age">
+        <label class="form-check-label" for="st_nas_check">
+          Нас
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="st_address_check" name="search_address">
+        <label class="form-check-label" for="st_address_check">
+          Хаяг
+        </label>
+      </div>
+      </div>
+     </div>
    </div>
 </form>
 <table class="table">
