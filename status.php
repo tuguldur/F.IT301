@@ -40,7 +40,7 @@
             </ul>
             <ul class="navbar-nav">
                <li class="nav-item">
-                  <a class="nav-link" href="logout.php">Logout</a>
+                  <a class="nav-link" href="logout.php">Гарах</a>
                </li>
             </ul>
          </div>

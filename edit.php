@@ -33,7 +33,7 @@ if(isset($_GET['id'])){
             </ul>
             <ul class="navbar-nav">
                <li class="nav-item">
-                  <a class="nav-link" href="login.php">Login</a>
+                  <a class="nav-link" href="login.php">Нэвтрэх</a>
                </li>
             </ul>
          </div>
