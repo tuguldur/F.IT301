@@ -61,30 +61,24 @@
     </tr>
   </thead>
   <tbody>
-   <?php
-
-while($row = mysqli_fetch_array($result))
-{
-echo "<tr>";
-echo "<td>" . $row['id'] . "</td>";
-echo "<td>" . $row['st_code'] . "</td>";
-echo "<td>" . $row['st_name'] . "</td>";
-if($row['st_huis'] == 1){
-   echo "<td>Эр</td>";
-}
-else{
-   echo "<td>Эм</td>";
-}
-echo "<td>" . $row['st_nas'] . "</td>";
-echo "<td>" . $row['st_phone_number'] . "</td>";
-echo "<td>" . $row['st_address'] . "</td>";
-echo "<td>
-<a class='mr-2' style='color:blue' href=edit.php?id=" .$row['id']. ">Edit</a>
-<a style='color:red' href=delete.php?id=" .$row['id']. ">Delete</a>
-</td>";
-echo "</tr>";
-}
-?>
+  <?php foreach($result as $student) : ?>
+<tr>
+    <td><?= $student['id']; ?></td>
+    <td><?= $student['st_code']; ?></td>
+    <td><?= $student['st_name']; ?></td>
+    <td><?= $student['st_huis'] == 1 ? 'Эр' : 'Эм'?></td>
+    <td><?= $student['st_nas']; ?></td>
+    <td><?= $student['st_phone_number']; ?></td>
+    <td><?= $student['st_address']; ?></td>
+    <td><a class='mr-2'
+           style='color:blue' 
+           href="edit.php?id=<?= $student['id']; ?>">Засах</a>
+           <a class='mr-2'
+           style='color:red' 
+           href="delete.php?id=<?= $student['id']; ?>" onclick="if(!confirm('<?= $student['st_name'] ?>-г устгах гэж байна, нээрээ юм уу?')) event.preventDefault()">Устгах</a>
+    </td>
+</tr>
+<?php endforeach; ?>
   </tbody>
 </table>
 <?php

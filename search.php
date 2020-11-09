@@ -42,19 +42,19 @@
      <div class="row">
       <div class="col">
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="st_code_check" name="search_code">
+        <input class="form-check-input" type="checkbox" id="st_code_check" name="column[]" value="st_code">
         <label class="form-check-label" for="st_code_check">
           Код
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="st_name_check" name="search_name">
+        <input class="form-check-input" type="checkbox" id="st_name_check" name="column[]" value="st_name">
         <label class="form-check-label" for="st_name_check">
           Нэр
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="st_gender_check" name="search_gender">
+        <input class="form-check-input" type="checkbox" id="st_gender_check" name="column[]" value="st_huis">
         <label class="form-check-label" for="st_gender_check">
           Хүйс
         </label>
@@ -62,19 +62,19 @@
       </div>
       <div class="col">
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="st_phone_number_check" name="search_phone">
+        <input class="form-check-input" type="checkbox" id="st_phone_number_check" name="column[]" value="st_phone_number"> 
         <label class="form-check-label" for="st_phone_number_check">
           Утасны дугаар
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="st_nas_check" name="search_age">
+        <input class="form-check-input" type="checkbox" id="st_nas_check" name="column[]" value="st_address">
         <label class="form-check-label" for="st_nas_check">
           Нас
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="st_address_check" name="search_address">
+        <input class="form-check-input" type="checkbox" id="st_address_check" name="column[]" value="st_address">
         <label class="form-check-label" for="st_address_check">
           Хаяг
         </label>
@@ -100,20 +100,28 @@
    <?php
 include './lib/config.php';
 
-if (isset($_GET['q']) || isset($_GET['age']))
+if (isset($_GET['q']))
 {
     $q = mysqli_real_escape_string($connect, $_GET['q']);
-    $raw_age = mysqli_real_escape_string($connect, $_GET['age']);
-    if (isset($_GET['age']) && $_GET['age'] !== 'false')
-    {
-        $age = strtoupper($raw_age);
-        $query = "SELECT * FROM students WHERE st_code LIKE '$q%' OR st_name LIKE '$q%' OR st_phone_number LIKE '$q%' OR st_address LIKE '%$q%' ORDER BY st_nas $age";
+    $clause = " WHERE ";
+    $sql="SELECT * FROM `students`  ";
+    if(isset($_GET['column'])){
+    foreach($_GET['column'] as $c){
+      if(!empty($c)){
+        $sql .= $clause."`".$c."` LIKE '%{$c}%'";
+        $clause = " OR ";
+      }
+     }
     }
-    else
-    {
-        $query = "SELECT * FROM students WHERE st_code LIKE '$q%' OR st_name LIKE '$q%' OR st_phone_number LIKE '$q%' OR st_address LIKE '%$q%'";
-    }
-    $result = mysqli_query($connect, $query);
+    echo $sql;//Remove after testing
+    // $search_code = ;
+    // $search_name = ;
+    // $search_gender = ;
+    // $search_phone = ;
+    // $search_age = (int);
+    // $search_address = ;
+    // $query = "SELECT * FROM students WHERE st_code LIKE '$q%' OR st_name LIKE '$q%' OR st_phone_number LIKE '$q%' OR st_address LIKE '%$q%'";
+    // $result = mysqli_query($connect, $query);
 }
 echo ($connect->error);
 if (!empty($result))
