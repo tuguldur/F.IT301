@@ -41,7 +41,7 @@
                </div>
                <div class="form-group">
                   <label>Оюутны код</label>
-                  <input type="text" class="form-control" placeholder="Оюутны код" required name="code" pattern="[A-Z]{1}[0-9]{9}" />
+                  <input type="text" class="form-control" placeholder="Оюутны код" required name="code" pattern="[A-Z]{1}[0-9]{9}" maxlength="10" />
                </div>
                <div class="form-group">
                   <label>Хүйс</label>
@@ -56,7 +56,7 @@
                </div>
                <div class="form-group">
                   <label>Утасны дугаар</label>
-                  <input type="number" class="form-control" placeholder="Оюунты утасны дугаар" required name="phone" max="8" min="7" />
+                  <input type="number" class="form-control" placeholder="Оюунты утасны дугаар" required name="phone" pattern="[0-9]{8}"/>
                </div>
                <div class="form-group">
                   <label>Хаяг</label>
@@ -115,14 +115,15 @@ if (isset($_POST['name']) && isset($_POST['code']) && isset($_POST['gender']) &&
          VALUES ('$code_uppercase','$name', '$gender', '$age', '$phone', '$address', '$password_hash')";
         if ($connect->query($query) === true)
         {
-            echo "
-         <div class='alert alert-success alert-dismissible fade show' role='alert'>
-           Амжилттай бүртгэлээ.
-            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-               <span aria-hidden='true'>&times;</span>
-            </button>
-         </div>
-         ";
+           header('Location: edit.php?id=1');
+         //    echo "
+         // <div class='alert alert-success alert-dismissible fade show' role='alert'>
+         //   Амжилттай бүртгэлээ.
+         //    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+         //       <span aria-hidden='true'>&times;</span>
+         //    </button>
+         // </div>
+         // ";
         }
         else
         {

@@ -113,17 +113,8 @@ if (isset($_GET['q']))
       }
      }
     }
-    echo $sql;//Remove after testing
-    // $search_code = ;
-    // $search_name = ;
-    // $search_gender = ;
-    // $search_phone = ;
-    // $search_age = (int);
-    // $search_address = ;
-    // $query = "SELECT * FROM students WHERE st_code LIKE '$q%' OR st_name LIKE '$q%' OR st_phone_number LIKE '$q%' OR st_address LIKE '%$q%'";
-    // $result = mysqli_query($connect, $query);
 }
-echo ($connect->error);
+$result  = $connect->query($sql);
 if (!empty($result))
 {
     while ($row = mysqli_fetch_array($result))

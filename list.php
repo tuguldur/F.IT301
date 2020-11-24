@@ -75,7 +75,7 @@
            href="edit.php?id=<?= $student['id']; ?>">Засах</a>
            <a class='mr-2'
            style='color:red' 
-           href="delete.php?id=<?= $student['id']; ?>" onclick="if(!confirm('<?= $student['st_name'] ?>-г устгах гэж байна, нээрээ юм уу?')) event.preventDefault()">Устгах</a>
+           href="delete.php?id=<?= $student['id']; ?>" onclick="if(!confirm('<?= $student['st_name'] ?> <?= $student['st_code']; ?>-г устгах гэж байна нээрээ юм уу?')) event.preventDefault()">Устгах</a>
     </td>
 </tr>
 <?php endforeach; ?>
